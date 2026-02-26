@@ -1,0 +1,132 @@
+Mature AND Responsible use of AI
+
+OBJECTIVES:
+Creation d'une APP mobile connectee et collaborative.
+
+
+A Definir:
+-Client/Server Architecture de notre choix,
+-Data storage,
+-API utilisee,
+-Securite (plat du pied)
+-SDK(?) celui-ci ne doit pas TOUT faire...
+
+
+Services a implementer: (au moins 2 sur 3)
+- Music Track Vote -> Live music chain with vote
+- Music Control Deleguation -> M..C..D..
+- Music Playlist Editor -> Real Time multi-user playlist edition
+
+
+Pas de contraintes de language pour le BACK-END
+Implementer pour IOS ou/et ANDROID
+Pas de bibliotheques externe sur GIT
+
+MANDATORY:
+
+Lors du PREMIER demarrage l'utilisateur doit CREER un COMPTE sur l'application. Il doit pouvoir choisir entre Mail/Password ET SocialNetwork account (Facebook, Google), l'utilisateur devra pouvoir lier son compte facebook/Google malgres tout.
+Si l'utilisateur creer un compte avec un mail/password, il doit recevoir un mail de validation et pouvoir changer son DP si oublie.
+
+
+Sur le PROFIL public de l'utilisateur doit se trouver:
+-Public infos(nom/pseudo, prenom/pseudo...)
+-Info consultable QUE par ses FRIENDS(amis)
+-Infos Prives(mail, numero de tel, age, ???etc???)
+-Preferences Musicales...
+
+
+MUSIC TRACK VOTE:
+Les utilisateurs sont dans une Salle (party, event, style jukebox FitnessPark),
+Les utilisateurs peuvent proposer des musiques pour la playlist, si ces musiques sont UPVOTE elles passent devant le reste de la playlist (en fonction des votes des autres musiques aussi)
+Par defaut les Events sont PUBLICS, tous les utilisateurs peuvent donc voter.
+Si l'Event est PRIVATE, seul les utilisateurs invites peuvent voir, rejoindre et voter dans la ROOM.
+Il faut implementer un system de LICENCE(autorisation) de QUI peut voter, exemple: entre certains horraires, dans un certains lieu...
+Il faut eviter les problemes de 'CONCURRENCE', quel musique passe devant dans la playlist en cas d'egalite par exemple, les regles doivent etre precises
+
+
+
+MUSIC CONTROL DELEGUATION:
+Droits ADMIN, qui peut donner les droits etc...
+Le controle de la music doit etre integrer et specifique a l'utilisateur et MEME aux differents appareils des users EX :-> j'ai deux IPAD l'un a les droits et l'autre non (les droits ne sont pas uniquement lies au compte)
+Dans le controle des droits on aura donc :
+-USER
+-DEVICE
+-PERMISSIONS/ROLE
+
+
+MUSIC PLAYLIST EDITOR:
+Les playlists peuvent etre multi-users,
+Elles doivent etre soit PUBLIC soit PRIVATE
+Par defaut elles sont public, si elles sont publics, tous le monde a acces a la playlist, sinon seuls les users Invites ont acces a la playlist
+Par DEFAUT tous le monde peut voter dans la playlist.
+A gerer -> les users invites sont les seuls qui peuvent voter (gerer les droits de l'app)
+A gerer -> donner les droit de vote selon l'heure et la geolocalisation
+
+
+MUSIC CONTROL DELEGUATION:
+Le controle de la music doit etre integrer et specifique a l'utilisateur et MEME aux differents appareils des users EX :-> j'ai deux IPAD l'un a les droits et l'autre non (les droits ne sont pas uniquement lies au compte)
+Dans le controle des droits on aura donc :
+-USER
+-DEVICE
+-PERMISSIONS/ROLE
+
+
+SERVER:
+Toutes les DATA seront stockes dans le BACK-END.
+Libre de choisir n'importe quelle techno (php, nodejs...)
+
+
+API:
+Back-end expose l'API pour toutes les applis possible, app ios, android, site web ...
+La doc sur l'API est obligatoire:
+-Method,
+-URL,
+-INPUTS,
+-OUTPUTS...
+L'outil Swagger/OpenAI est dispo pour gerer une partie de cela
+Une API de type REST est recommandee, mais pas obligatoire
+Le JSON pour les requetes et reponses d'API est fortement conseille, mais pas obligatoire.
+
+MOBILE APPLICATION:
+Simple REMOTE-CONTROL (TELECOMMANDE), elle envoie les commandes au BACK-END et affiche ce que le BACK-END lui renvoie, rien n'est decide sur l'app
+L'addresse du BACK-END doit etre configurable pour les tests (L’idée : le correcteur peut cloner ton backend, le lancer sur sa machine, puis configurer l’app pour pointer dessus.)
+On doit pouvoir s'authentifier dans l'app avec FACEBOOK ou GOOGLE(au moins un)
+L'utilisateur clique sur se connecter, une page s'ouvre via le SDK officiel(GOOGLE, FACEBOOK), tu recupere le token, tu l'envoies au backend, le back-end verifie le token aupres de GOOGLE/FACEBOOK et creer l'USER
+Il faut donc integrer le SDK mobile et faire le lien entre le login social et le BACK-END
+
+SECURING:
+Les USERS n'ont acces qu'a leur propres donnes personnelles, le BACK-END doit verifier que l'USER 
+Ne pas oublier les comportements malveillants et proteger l'app avec des rate limiting(limiter le nombre de requetes), expiration des tokens...
+Et autres risques a limiter et a CONNAITRE
+A chaque action faite depuis l'APP le BACK-END doit enregistrer un LOG, chaque LOG doit contenir au minimum:
+-La plateforme
+-Le modele du device
+-La version de l'APP
+
+
+RAMP-UP
+Il faut savoir combien de USER simultanes l'API et le BACK-END peuvent supporter pour les 3services pris en compte
+L'utilisation d'outils pour tester est autorisee
+Il faut savoir dire sur quelle machine tourne le BACK-END pendant les tests, CPU, RAM, Hebergement(ou ca)
+
+
+BONUS PART:
+
+MULTI-PLATFRORM USER:
+-SITE WEB RESPONSIV
+
+REFLECTION ON IOT:
+-Si des USERS passe proche d'un evenement enregistre, ils recoivent des infos sur cet evenement(comment y acceder, type de music, etc)
+
+FREE SUBSCRIPTION / PAID SUBSCRIPTION:
+-Mettre des options/fonctionnalites payantes implementes dans l'APP, l'USER doit avoir la possibilite de passer de la version gratuite a payante
+
+ OFFLINE-MODE:
+ -L'APP doit fonctionner sans reseaux(4g/wifi...)
+ -Les donnees doivent donc etre stockes localement sur le tel
+ -Une experience adapte doit etre propose, par exemple des playlists locales avec une QUEUE, l'experience peut etre completement differente et c'est normal
+ -Lorsque l'APP repasse en ligne, ce qui a ete fait localement doit se synchronise avec le serveur reel
+ -Faire attention aux problemes de synchronisation entre les gens OFFLINE et ONLINE (votes offline en retard etc...), il faut priorise le serveur ONLINE, messages d'erreur et autres idees...
+ -Gerer les donnees obsoletes par rapport au serveur, effacer les vielles donnes, les fusionner ou autre et s'assurer que l'USER n'ait pas de fausses infos affiches(marquer les donnees locales comme potentiellement perimes, les mettre a jour)
+ 
+
