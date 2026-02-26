@@ -10,5 +10,5 @@ app.get('/', (req, res) => {
 }); //reponse du serveur basique lors d'une connexion a la page 'HOME'('/')//
 
 app.listen(port, () => {
-	console.log("Server running on port ${port}")
+	console.log(`Server running on port ${port}`)
 }); //le serveur ecoute le port 3000//
